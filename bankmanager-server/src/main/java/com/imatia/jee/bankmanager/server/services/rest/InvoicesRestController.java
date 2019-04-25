@@ -46,6 +46,7 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 			insertParam.setData(updateParameter.getData());
 			insertParam.setSqltypes(updateParameter.getSqltypes());
 			return super.insert(name, insertParam);
+
 		}
 	}
 }
