@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DefaultConfiguration>
+
+	<StaticValues>
+		<Class name="com.ontimize.gui.login.LoginDialog">
+			<StaticValue variable="topMargin" value="0" />
+			<StaticValue variable="bottomMargin" value="75" />
+			<StaticValue variable="leftMargin" value="30" />
+			<StaticValue variable="rightMargin" value="30" />
+		</Class>
+		
+		<Class name="com.ontimize.login.ShapeChangePasswordDialog">
+			<StaticValue variable="topMargin" value="125" />
+			<StaticValue variable="bottomMargin" value="50" />
+			<!-- <StaticValue variable="leftMargin" value="0" /> -->
+			<!-- <StaticValue variable="rightMargin" value="0" /> -->
+			<!-- <StaticValue variable="labelTopMargin" value="0" /> -->
+			<StaticValue variable="labelBottomMargin" value="90" />
+			<!-- <StaticValue variable="labelLeftMargin" value="0" /> -->
+			<!-- <StaticValue variable="labelRightMargin" value="0" /> -->
+		</Class>
+		
+		<Class name="com.ontimize.gui.preferences.BasicApplicationPreferences">
+			<StaticValue variable="remoteUserPreferences" value="false" />
+			<StaticValue variable="checkOldPreferences" value="false" />
+			<StaticValue variable="ADJUST_TREE_SPACE_VALUE" value="true" />
+		</Class>
+		<Class name="com.ontimize.gui.tree.Tree">
+			<StaticValue variable="enabledRowCount" value="true" />
+		</Class>
+
+		<Class name="com.ontimize.gui.ApplicationManager">
+			<StaticValue variable="CHECK_VISIBLE_PERMISSION_ON_TOOLBAR_COMPONENTS"
+				value="true" />
+		</Class>
+
+		<Class name="com.ontimize.gui.BasicInteractionManager">
+			<StaticValue variable="CONFIRM_DELETE_DEFAULT_VALUE"
+				value="true" />
+			<StaticValue variable="AVANCED_QUERY_DEFAULT_VALUE"
+				value="true" />
+			<StaticValue variable="CLOSE_DETAIL_FORM_AFTER_INSERT_DEFAULT_VALUE"
+				value="false" />
+			<StaticValue variable="NEWMODE" value="true" />
+		</Class>
+
+		<Class name="com.ontimize.gui.container.Tab">
+			<StaticValue variable="QUERY_IF_VISIBLE_DEFAULT_VALUE"
+				value="false" />
+		</Class>
+
+		<Class name="com.ontimize.gui.table.Table">
+			<StaticValue variable="ORDER_COLS_BY_VISIBLE_COLS" value="true" />
+			<StaticValue variable="DEFAULT_QUICK_FILTER" value="true" />
+			<StaticValue variable="defaultPivotTableVisibility"
+				value="false" />
+			<StaticValue variable="defaultQuickFilterVisible" value="true" />
+			<StaticValue variable="MIN_ROW_HEIGHT" value="20" />
+			<StaticValue variable="defaultShowGridValue" value="false" />
+		</Class>
+
+		<Class name="com.ontimize.gui.Form">
+			<StaticValue variable="DEFAULT_ATTACHMENT" value="false" />
+			<StaticValue variable="defaultTableViewMinRowHeight"
+				value="20" />
+		</Class>
+
+		<Class name="com.ontimize.gui.field.DataField">
+			<StaticValue variable="DEFAULT_TOP_MARGIN" value="1" />
+			<StaticValue variable="DEFAULT_BOTTOM_MARGIN" value="1" />
+			<StaticValue variable="DEFAULT_LABEL_LEFT_MARGIN" value="5" />
+			<StaticValue variable="DEFAULT_LABEL_RIGHT_MARGIN" value="5" />
+			<StaticValue variable="DEFAULT_FIELD_LEFT_MARGIN" value="1" />
+			<StaticValue variable="DEFAULT_FIELD_RIGHT_MARGIN" value="1" />
+			<StaticValue variable="DEFAULT_PARENT_MARGIN" value="1" />
+			<!-- <StaticValue variable="DEFAULT_PARENT_MARGIN_FOR_SCROLL" value="1" 
+				/> -->
+		</Class>
+			<Class name="com.ontimize.login.ShapeChangePasswordDialog">
+			<StaticValue variable="topMargin" value="125" />
+			<StaticValue variable="bottomMargin" value="50" />
+			<!-- <StaticValue variable="leftMargin" value="0" /> -->
+			<!-- <StaticValue variable="rightMargin" value="0" /> -->
+			<!-- <StaticValue variable="labelTopMargin" value="0" /> -->
+			<StaticValue variable="labelBottomMargin" value="90" />
+			<!-- <StaticValue variable="labelLeftMargin" value="0" /> -->
+			<!-- <StaticValue variable="labelRightMargin" value="0" /> -->
+		</Class>
+	</StaticValues>
+</DefaultConfiguration>

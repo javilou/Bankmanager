@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- File that describes the client menu configuration -->
+<!-- File that describes the client menu configuration -->
+<ApplicationMenuBar visible="yes">
+	<Menu attr="configuration">
+		<MenuLocale attr="preferences.language"
+			icon="images/buttonsbar/16x16/earth.png" resourceBundle="i18n.bundle">
+			<LocaleMenuItem attr="galician" locale="gl_ES" />
+			<LocaleMenuItem attr="spanish" locale="es_ES" />
+			<LocaleMenuItem attr="english" locale="en_US" />
+		</MenuLocale>
+	</Menu>
+	<Menu attr="menu.customer" text="menu.customer">
+		<MenuItem attr="manager-customer" text="manager-customer" />
+	</Menu>
+	<Menu attr="menu.branch" text="menu.branch">
+		<MenuItem attr="manager-branch" text="manager-branch" />
+		<MenuItem attr="manager-account" text="manager-account" />
+	</Menu>
+	<Menu attr="menu.employee" text="menu.employee">
+		<MenuItem attr="manager-employee" text="manager-employee"></MenuItem>
+	</Menu>
+
+</ApplicationMenuBar>

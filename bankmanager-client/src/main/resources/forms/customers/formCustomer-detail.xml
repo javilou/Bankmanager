@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FormExt entity="CustomerService.customer" keys="CUSTOMERID"
+	columns="ID" title="form.customersDetail">
+	<FormHeader standardbuttons="uid" />
+	<IntegerDataField attr="CUSTOMERID" dim="text"
+		text="CUSTOMERID" enabled="no" />
+	<Row expand="yes">
+		<Column expand="no" margin="5;5;5;5">
+			<ImageDataField attr="PHOTO" text="PHOTO" width="144"
+				height="200" returnbytes="yes" keepaspectratio="yes" />
+		</Column>
+		<Column title="form.personalInformation">
+			<Row>
+				<Column>
+					<Row>
+						<TextDataField attr="NAME" text="NAME" dim="text" />
+						<TextDataField attr="SURNAME" text="SURNAME"
+							dim="text" />
+					</Row>
+					<Row>
+						<NIFDataField attr="ID" text="ID" dim="text" />
+						<TextDataField attr="PHONE" text="PHONE" dim="text" />
+					</Row>
+				</Column>
+				<Column expand="no">
+					<DateDataField attr="STARTDATE" text="STARTDATE" />
+					<ReferenceComboDataField
+						attr="CUSTOMERTYPEID" cod="CUSTOMERTYPEID" codInteger="yes"
+						codvisible="no" cols="DESCRIPTION"
+						entity="CustomerService.customerType"
+						form="formCustomerType-detail.xml" dim="text" />
+				</Column>
+			</Row>
+			<com.ontimize.gui.field.WWWDataField
+				attr="EMAIL" dim="text" />
+			<TextDataField attr="ADDRESS" text="ADDRESS" dim="text" />
+			<Row>
+				<RealDataField attr="LONGITUDE" text="LONGITUDE"
+					dim="text" />
+				<RealDataField attr="LATITUDE" text="LATITUDE"
+					dim="text" />
+			</Row>
+			<Row expand="yes">
+				<Column>
+					<MemoDataField attr="COMMENTS" text="COMMENTS"
+						dim="text" expand="yes" labelposition="top" />
+				</Column>
+			</Row>
+		</Column>
+	</Row>
+</FormExt>

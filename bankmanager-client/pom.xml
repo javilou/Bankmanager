@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.imatia.jee</groupId>
+    <artifactId>bankmanager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>bankmanager-client</artifactId>
+  <name>Bank Manager Client JEE</name>
+  <description>Bank Manager Client JEE</description>
+  
+  
+  <dependencies>
+		<dependency>
+			<groupId>com.imatia.jee</groupId>
+			<artifactId>bankmanager-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.imatia.jee</groupId>
+			<artifactId>bankmanager-images</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ontimize.jee</groupId>
+			<artifactId>ontimize-jee-desktopclient</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mesp</groupId>
+			<artifactId>mesp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+		</dependency>
+			<dependency>
+			<groupId>com.ontimize</groupId>
+			<artifactId>ontimize-more-plaf-j7</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ontimize</groupId>
+			<artifactId>ontimize-more-plaf-styles-white</artifactId>
+		</dependency>
+	</dependencies>
+  
+  	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>logback.xml</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>logback.xml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+  
+  
+</project>

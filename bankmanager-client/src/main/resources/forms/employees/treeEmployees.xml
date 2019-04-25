@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Node entity="EmployeeService.employee" text="employee.treeTitle"
+	attr="EMPLOYEENAME;EMPLOYEESURNAME" sortattr="EMPLOYEEID"
+	form="formEmployees-detail.xml" keys="EMPLOYEEID"
+	iconorg="employees_16.png" iconnoorg="tree_point.png" separator=" ">
+</Node>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ApplicationToolBar>
+	<ApToolBarButton attr="manager-about"
+		icon="home_24.png" />
+	<ApToolBarFiller />
+	<ApToolBarButton icon="customer_24.png"
+		attr="manager-customer" />
+	<ApToolBarButton icon="branches_24.png"
+		attr="manager-branch" />
+	<ApToolBarButton icon="accounts_24.png"
+		attr="manager-account" />
+	<ApToolBarButton icon="employees_24.png"
+		attr="manager-employee" />
+	<ApToolBarFiller />
+	<ApToolBarButton attr="Exit" icon="door_exit_24.png" />
+</ApplicationToolBar>

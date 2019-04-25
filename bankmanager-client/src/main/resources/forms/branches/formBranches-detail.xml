@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FormExt entity="BranchService.branch" keys="OFFICEID"
+	columns="OFFICEID;NAME" title="form.branchDetail">
+	<FormHeader standardbuttons="yes" />
+	<Row expand="no" title="branch.name.dbtranslation">
+		<MaskDataField attr="OFFICEID" text="OFFICEID" dim="no"
+			enabled="yes" exactmatch="yes" labelposition="top" mask="0000"
+			required="yes" />
+		<TextDataField attr="NAME" dim="text"
+			labelposition="top" labelsize="10" required="yes" />
+	</Row>
+	<Column expand="yes" expandlast="yes"
+		title="branch.details.dbtranslation">
+		<Row expand="no">
+			<TextDataField attr="ADDRESS" dim="text"
+				labelposition="top" required="yes" text="ADDRESS" />
+			<TextDataField attr="PHONE" dim="no"
+				labelposition="top" required="yes" text="PHONE" />
+			<DateDataField attr="STARTDATE" dim="no"
+				labelposition="top" text="STARTDATE" />
+		</Row>
+		<Row expand="yes">
+			<MemoDataField attr="DETAILS" dim="text" expand="yes"
+				labelvisible="no" rows="4" size="35" />
+		</Row>
+	</Column>
+</FormExt>

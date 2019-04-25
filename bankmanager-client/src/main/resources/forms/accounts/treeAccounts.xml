@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Node entity="BranchService.account" text="account.treeTitle"
+	attr="ENTITYID;OFFICEID;CDID;ANID"
+	sortattr="ENTITYID;OFFICEID;CDID;ANID" form="formAccounts-detail.xml"
+	keys="ACCOUNTID" iconorg="accounts_16.png" iconnoorg="tree_point.png"
+	separator=" ">
+</Node>

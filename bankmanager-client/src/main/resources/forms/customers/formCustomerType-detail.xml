@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FormExt entity="CustomerService.customerType"
+	keys="CUSTOMERTYPEID" columns="CUSTOMERTYPEID;DESCRIPTION"
+	title="form.customersTypeDetail">
+	<FormHeader standardbuttons="quid" />
+	<IntegerDataField attr="CUSTOMERTYPEID"
+		text="CUSTOMERTYPEID" dim="text" enabled="no"></IntegerDataField>
+	<TextDataField attr="DESCRIPTION" text="DESCRIPTION"
+		dim="text" required="yes"></TextDataField>
+</FormExt>

@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.imatia.jee</groupId>
+    <artifactId>bankmanager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>bankmanager-war</artifactId>
+  <packaging>war</packaging>
+  <name>Bank Manager War JEE</name>
+  <description>Bank Manager War JEE</description>
+  
+  <build>
+		<finalName>${server-context}</finalName>
+		<!-- =========================================================== -->
+		<!-- Filtering -->
+		<!-- =========================================================== -->
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+					<!-- In version 2.1-alpha-1, this was incorrectly named warSourceExcludes -->
+					<!-- <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes> -->
+					<!-- Use this to include a selection of jars that will be included in the WAR -->
+					<!-- <packagingExcludes>**/*.jar</packagingExcludes>-->
+					<!-- <packagingIncludes>**/*.xml,**/*.properties,**/*.png,**/*.css,**/*.js,**/*.jsp</packagingIncludes> -->
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+					</archive>
+					<warName>${server-context}</warName>
+				</configuration>
+			</plugin>
+			<!-- Evitar el despliegue de los WAR en el repositorio corporativo -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<!-- Project dependencies -->
+		<dependency>
+			<groupId>com.imatia.jee</groupId>
+			<artifactId>bankmanager-server</artifactId>
+		</dependency>
+	</dependencies>
+</project>

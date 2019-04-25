@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:oss="http://www.ontimize.com/schema/beans" xmlns:osr="http://www.ontimize.com/schema/report"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.ontimize.com/schema/beans http://www.ontimize.com/schema/beans/ontimize-spring-server-1.0.xsd
+    http://www.ontimize.com/schema/report http://www.ontimize.com/schema/report/ontimize-spring-report-1.0.xsd">
+
+	<tx:annotation-driven />
+
+	<!-- Data source. -->
+	<!-- <bean id="mainDataSource" class="org.springframework.jndi.JndiObjectFactoryBean" -->
+	<!-- p:jndiName="${dataSource.jndiName}" p:resourceRef="false" /> -->
+	<!-- Data source. -->
+	<bean id="mainDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:hsql://localhost:9013/templateDB" />
+		<property name="username" value="SA" />
+		<property name="password" value="" />
+		<property name="initialSize" value="10" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mainDataSource" />
+		<!-- <property name="defaultTimeout" value="600"/> -->
+	</bean>
+
+	<!-- Spring application context -->
+	<bean id="springApplicationContext" class="com.ontimize.jee.server.spring.SpringApplicationContext">
+	</bean>
+
+	<!-- Statement handler -->
+	<bean id="extendedSQLConditionValuesProcessor"
+		class="com.ontimize.db.SQLStatementBuilder$ExtendedSQLConditionValuesProcessor">
+		<constructor-arg>
+			<value>true</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>true</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="sqlStatementHandler" class="com.ontimize.db.handler.HSQLDBSQLStatementHandler">
+		<property name="SQLConditionValuesProcessor" ref="extendedSQLConditionValuesProcessor" />
+		<property name="returnByteArray" value="true" />
+	</bean>
+
+	<bean id="oracleNameConverter"
+		class="com.ontimize.jee.server.dao.jdbc.UnderscoreToCamelcaseNameConverter">
+		<property name="upperCase" value="true" />
+	</bean>
+
+	<bean id="dbErrorMessagesTranslator"
+		class="com.ontimize.jee.server.exceptiontranslator.DBErrorMessagesTranslator">
+		<constructor-arg>
+			<value>ontimize-dberrorstranslator.properties</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="exceptionTranslator"
+		class="com.ontimize.jee.server.exceptiontranslator.OntimizeExceptionTranslator">
+		<property name="dbErrorMessagesTranslator" ref="dbErrorMessagesTranslator"></property>
+	</bean>
+
+	<bean id="deleteRequestStatisticsHistory"
+		class="com.ontimize.jee.server.services.management.DeleteRequestStatisticsHistory">
+		<!-- El primer argumento define el ciclo de ejecucion del hilo en milisegundos 
+			y el segundo los días respecto a la fecha actual que el proceso debe mantener 
+			de los datos registrados -->
+		<constructor-arg value="86400000" />
+		<constructor-arg value="90" />
+	</bean>
+
+	<!-- Multipart Files Upload -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- max upload size in bytes -->
+		<property name="maxUploadSize" value="209715200" /> <!-- 200MB -->
+		<!-- max size of file in memory (in bytes) -->
+		<property name="maxInMemorySize" value="10485760" /> <!-- 10MB -->
+	</bean>
+
+	<!-- AccidenteReportService -->
+	<!-- Enable usage of @Autowired. -->
+	<context:annotation-config />
+	<tx:annotation-driven />
+
+
+	<context:component-scan
+		base-package="com.ontimize.jee.common.services.servermanagement"></context:component-scan>
+	<context:component-scan base-package="com.ontimize.jee.server.services.management"></context:component-scan>
+
+	<context:component-scan base-package="com.ontimize.jee.server.dao">
+		<context:include-filter type="annotation"
+			expression="com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper" />
+	</context:component-scan>
+
+	<context:component-scan base-package="com.ontimize.jee.server.security.encrypt" />
+
+	<!-- Ontimize -->
+	<oss:ontimize-configuration id="ontimizeConfiguration">
+		<oss:security>
+			<oss:user-information-service>
+				<oss:database-user-information-service
+					ref-user-repository="OCLoginProfilesDao" query-id="login"
+					user-login-column="USER_" user-password-column="PASSWORD"
+					other-data="NAME;SURNAME;EMAIL;NIF;USERBLOCKED,LASTPASSWORDUPDATE;FIRSTLOGIN" />
+			</oss:user-information-service>
+			<oss:user-role-information-service>
+				<oss:database-user-role-information-service
+					ref-user-role-repository="OCLoginProfilesDao" query-id="userRoles"
+					user-login-column="USER_" role-name-column="ROLENAME" />
+			</oss:user-role-information-service>
+			<oss:role-information-service>
+				<oss:database-role-information-service
+					ref-role-repository="OCLoginProfilesDao" role-name-column="ROLENAME"
+					server-permission-query-id="serverPermissions"
+					server-permission-name-column="PERMISSION_NAME"
+					client-permission-query-id="clientPermissions"
+					client-permission-column="XMLCLIENTPERMISSION" />
+			</oss:role-information-service>
+			<oss:authorization>
+				<oss:default-authorizator />
+			</oss:authorization>
+		</oss:security>
+		<oss:remote-operation max-parallel-threads="10" />
+	</oss:ontimize-configuration>
+</beans>

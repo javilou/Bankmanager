@@ -1,0 +1,123 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.imatia.jee</groupId>
+    <artifactId>bankmanager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>bankmanager-server</artifactId>
+  <name>Bank Manager Server JEE</name>
+  <description>Bank Manager Server JEE</description>
+<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.imatia.jee</groupId>
+			<artifactId>bankmanager-common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ontimize.jee</groupId>
+			<artifactId>ontimize-jee-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ontimize.jee</groupId>
+			<artifactId>ontimize-jee-server-jdbc</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.ontimize.jee</groupId>
+			<artifactId>ontimize-jee-server-rest</artifactId>
+			<version>${ontimize-jee.version}</version>
+		</dependency>
+		<dependency>
+			<!-- no incluida en servidres no full jee -->
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+		</dependency>
+		<!-- HSQLDB JDBC driver -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+		</dependency>
+		<!-- Servlet API -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Multipart File Upload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>run_database</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>configure_database</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<available file="${hsqldatabase.path}/templateDB.script"
+											property="database.exist" />
+										<echo message="${hsqldatabase.path}/templateDB.script" />
+										<copy tofile="${hsqldatabase.path}/templateDB.script"
+											file="${hsqldatabase.path}/templateDB.txt" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<configuration>
+							<mainClass>org.hsqldb.Server</mainClass>
+							<arguments>
+								<argument>-port</argument>
+								<argument>9013</argument>
+								<argument>-database.0</argument>
+								<argument>${hsqldatabase.path}/templateDB</argument>
+								<argument>-dbname.0</argument>
+								<argument>templateDB</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
+</project>

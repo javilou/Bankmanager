@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:annotation-config />
+	<import resource="spring-config-core-services.xml"/>
+	<import resource="spring-config-main-services.xml"/>
+	
+
+	<!-- Bean encargado de suplir al buscodor de referencias remoto. No se le 
+		puede cambiar el nombre -->
+	<bean id="remoteLocatorInvocationHandler"
+		class="com.ontimize.jee.desktopclient.locator.handlers.DefaultLocatorInvocationHandler">
+		<property name="invocationDelegates">
+			<list>
+			
+				<bean
+					class="com.ontimize.jee.desktopclient.hessian.HessianSessionLocatorInvocationDelegate" />
+				<bean
+					class="com.ontimize.jee.desktopclient.locator.handlers.LicenseLocatorInvocationDelegate" />
+				<bean
+					class="com.ontimize.jee.desktopclient.locator.handlers.ConnectionOptimizerInvocationDelegate" />
+				<bean
+					class="com.ontimize.jee.desktopclient.locator.handlers.XMLClientProviderInvocationDelegate" />
+				<bean
+					class="com.ontimize.jee.desktopclient.locator.handlers.UtilInvocationDelegate" />
+				<bean
+					class="com.ontimize.jee.desktopclient.locator.handlers.ClientPermissionInvocationDelegate" />
+				<bean
+					class="com.ontimize.jee.desktopclient.locator.handlers.RemoteApplicationPreferenceReferencerDelegate" />					
+			</list>
+		</property>
+	</bean>
+	
+</beans>
+

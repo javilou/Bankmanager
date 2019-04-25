@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+	table="TUSER_ROLE" datasource="mainDataSource"
+	sqlhandler="sqlStatementHandler">
+	<DeleteKeys>
+		<Column>ID_USER_ROLE</Column>
+	</DeleteKeys>
+	<UpdateKeys>
+		<Column>ID_USER_ROLE</Column>
+	</UpdateKeys>
+	<GeneratedKey>ID_USER_ROLE</GeneratedKey>
+	<Queries>
+		<Query id="default">
+			<AmbiguousColumns>
+				<AmbiguousColumn name="USER_" prefix="tu" />
+				<AmbiguousColumn name="ID_ROLENAME" prefix="tr" />
+			</AmbiguousColumns>
+			<FunctionColumns>
+				<FunctionColumn name="ACTIVED" value="CASE WHEN tu.down_date IS NULL THEN 'S' ELSE 'N' END" />
+			</FunctionColumns>
+			<Sentence>
+					<![CDATA[
+					select
+						#COLUMNS#
+					from
+						${mainschema}.TUSER tu
+						LEFT JOIN ${mainschema}.TUSER_ROLE tur ON tu.USER_ = tur.USER_
+						LEFT JOIN ${mainschema}.TROLE tr ON tur.ID_ROLENAME = tr.ID_ROLENAME
+					#WHERE#
+					#ORDER#
+					]]>
+			</Sentence>
+		</Query>
+		<Query id="fullRolesWithUser">
+		<AmbiguousColumns>
+				<AmbiguousColumn name="USER_" prefix="fulljoin" />
+				<AmbiguousColumn name="ID_ROLENAME" prefix="fulljoin" />
+			</AmbiguousColumns>
+			<FunctionColumns>
+				<FunctionColumn name="ACTIVED" value="CASE WHEN tur.id_role IS NOT NULL THEN 'S' ELSE 'N' END" />
+			</FunctionColumns>
+			<Sentence>
+					<![CDATA[
+					select
+						 #COLUMNS#
+					from
+            			(
+            				select 
+              					tu.*,
+              					tr.*
+            				from
+              					${mainschema}.TUSER tu,
+              					${mainschema}.TROLE tr
+             			) fulljoin LEFT JOIN ${mainschema}.TUSER_ROLE tur ON fulljoin.ID_ROLENAME = tur.ID_ROLENAME AND fulljoin.USER_ = tur.USER_		
+					#WHERE#
+					#ORDER#
+					]]>
+			</Sentence>
+		</Query>
+		<Query id="rolesWithoutUser">
+			<FunctionColumns>
+				<FunctionColumn name="ACTIVED" value="'N'" />
+				<FunctionColumn name="ID_USER" value="null" />
+				<FunctionColumn name="ID_USER_ROLE" value="null" />
+			</FunctionColumns>
+			<Sentence>
+				<![CDATA[
+					select 
+					    #COLUMNS#	
+					from
+						${mainschema}.TROLE					
+					#WHERE#
+					#ORDER#
+					]]>		
+		</Sentence>
+		</Query>
+	</Queries>
+</JdbcEntitySetup>

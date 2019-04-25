@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+	table="TUSER" datasource="mainDataSource" sqlhandler="sqlStatementHandler">
+	<DeleteKeys>
+		<Column>USER_</Column>
+	</DeleteKeys>
+	<UpdateKeys>
+		<Column>USER_</Column>
+	</UpdateKeys>
+<!-- 	<GeneratedKey>USER_</GeneratedKey> -->
+	<Queries>
+		<Query id="login">
+			<Sentence>
+					<![CDATA[
+						Select 
+							#COLUMNS#
+						from 
+							${mainschema}.TUSER						
+		          		#WHERE#
+		          		#ORDER#
+					]]>
+			</Sentence>
+		</Query>
+		<Query id="userRoles">
+			<AmbiguousColumns>
+				<AmbiguousColumn name="USER_" prefix="tu" />
+				<AmbiguousColumn name="ID_ROLENAME" prefix="tr" />
+			</AmbiguousColumns>
+			<Sentence>
+					<![CDATA[
+					select
+						#COLUMNS#
+					from
+						${mainschema}.TUSER tu
+						JOIN ${mainschema}.TUSER_ROLE tur ON tu.USER_ = tur.USER_
+						JOIN ${mainschema}.TROLE tr ON tur.ID_ROLENAME = tr.ID_ROLENAME
+					#WHERE#
+					#ORDER#
+					]]>
+			</Sentence>
+		</Query>
+<!-- 		<Query id="userRolesWithStudents"> -->
+<!-- 			<Sentence> -->
+<!-- 					<![CDATA[ -->
+<!-- 						select -->
+<!-- 							tu.LOGIN, tr.ROLE_NAME,tu.ID_USER -->
+<!-- 						from -->
+<!-- 							${mainschema}.TUSER tu  -->
+<!-- 							JOIN ${mainschema}.TUSER_ROLE tur ON tu.id_user = tur.id_user -->
+<!-- 							JOIN ${mainschema}.TROLE tr ON tur.id_role = tr.id_role -->
+<!-- 						#WHERE# -->
+<!-- 						#ORDER# -->
+<!-- 					]]> -->
+<!-- 			</Sentence> -->
+<!-- 		</Query> -->
+		<Query id="serverPermissions">
+			<AmbiguousColumns>
+				<AmbiguousColumn name="ID_ROLENAME" prefix="tr" />
+				<AmbiguousColumn name="ID_SERVER_PERMISSION" prefix="tsp" />
+			</AmbiguousColumns>
+			<Sentence>
+					<![CDATA[
+					select
+						#COLUMNS#
+					from
+						${mainschema}.TROLE tr
+						JOIN ${mainschema}.TROLE_SERVER_PERMISSION trsp ON tr.ID_ROLENAME = trsp.ID_ROLENAME
+						JOIN ${mainschema}.TSERVER_PERMISSION tsp ON trsp.ID_SERVER_PERMISSION = tsp.ID_SERVER_PERMISSION
+					#WHERE#
+					#ORDER#
+					]]>
+		</Sentence>
+		</Query>
+		<Query id="clientPermissions">
+			<Sentence>
+					<![CDATA[
+					select
+						#COLUMNS#
+					from
+						${mainschema}.TROLE tr
+					#WHERE#
+					#ORDER#
+					]]>
+		</Sentence>
+		</Query>
+	</Queries>
+</JdbcEntitySetup>

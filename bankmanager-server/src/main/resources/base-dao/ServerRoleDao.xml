@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+	table="TROLE_SERVER_PERMISSION" datasource="mainDataSource" sqlhandler="sqlStatementHandler">
+	<DeleteKeys>
+		<Column>ID_ROLE_SERVER_PERMISSION</Column>
+	</DeleteKeys>
+	<UpdateKeys>
+		<Column>ID_ROLE_SERVER_PERMISSION</Column>
+	</UpdateKeys>
+	<GeneratedKey>ID_ROLE_SERVER_PERMISSION</GeneratedKey>
+	<Queries>
+		<Query id="id_serverRole">
+			<AmbiguousColumns>
+				<AmbiguousColumn name="ID_ROLE" prefix="a" />
+				<AmbiguousColumn name="ID_SERVER_PERMISSION" prefix="a" />
+			</AmbiguousColumns>
+			<FunctionColumns>
+				<FunctionColumn name="ACTIVED" value="CASE WHEN id_role_server_permission IS NOT NULL THEN 'S' ELSE 'N' END" />
+			</FunctionColumns>
+			<Sentence>
+				<![CDATA[	
+					select  
+						#COLUMNS#
+					 from 
+					 	(SELECT
+							tr.ID_ROLE,
+							ROLE_NAME,
+							ts.ID_SERVER_PERMISSION,
+							PERMISSION_NAME
+						FROM 
+					    	${mainschema}.TROLE tr,
+					    	${mainschema}.TSERVER_PERMISSION ts
+					    where
+					    	tr.id_role is not null
+					    ) a LEFT JOIN ${mainschema}.TROLE_SERVER_PERMISSION ON a.id_role = TROLE_SERVER_PERMISSION.id_role and a.ID_SERVER_PERMISSION = TROLE_SERVER_PERMISSION.ID_SERVER_PERMISSION 
+					 #WHERE#
+				]]>			
+				</Sentence>
+		</Query>
+		<Query id="id_serverRole_all">
+			<FunctionColumns>
+				<FunctionColumn name="ACTIVED" value="'N'" />
+				<FunctionColumn name="ID_ROLE" value="null" />
+				<FunctionColumn name="ROLE_NAME" value="null" />
+				<FunctionColumn name="ID_ROLE_SERVER_PERMISSION" value="null" />
+			</FunctionColumns>
+			<Sentence>
+				<![CDATA[	
+				select
+					#COLUMNS#
+				from 
+					${mainschema}.TSERVER_PERMISSION
+				#WHERE#
+				]]>			
+				</Sentence>
+		</Query>
+	</Queries>
+</JdbcEntitySetup>

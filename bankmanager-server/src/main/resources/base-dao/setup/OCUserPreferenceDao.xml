@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+	table="TUSER_PREFERENCE" datasource="mainDataSource" sqlhandler="sqlStatementHandler">
+	<DeleteKeys>
+		<Column>USER_LOGIN</Column>
+		<Column>PREFERENCE_NAME</Column>
+	</DeleteKeys>
+	<UpdateKeys>
+		<Column>USER_LOGIN</Column>
+		<Column>PREFERENCE_NAME</Column>
+	</UpdateKeys>
+	<GeneratedKey>ID_USER_PREFERENCE</GeneratedKey>
+</JdbcEntitySetup>

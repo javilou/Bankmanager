@@ -1,0 +1,11 @@
+com\imatia\jee\bankmanager\common\base\constants\entities\RoleServerPermission.class
+com\imatia\jee\bankmanager\common\base\constants\entities\User.class
+com\imatia\jee\bankmanager\common\base\constants\entities\UserRole.class
+com\imatia\jee\bankmanager\common\base\constants\entities\Role.class
+com\imatia\jee\bankmanager\common\base\services\IUserAndRoleService.class
+com\imatia\jee\bankmanager\common\base\constants\entities\Setting.class
+com\imatia\jee\bankmanager\common\base\services\IAdministrationService.class
+com\imatia\jee\bankmanager\common\exception\ApplicationException.class
+com\imatia\jee\bankmanager\common\base\constants\entities\ServerPermission.class
+com\imatia\jee\bankmanager\common\base\constants\ApplicationConstants.class
+com\imatia\jee\bankmanager\common\base\constants\entities\Test.class

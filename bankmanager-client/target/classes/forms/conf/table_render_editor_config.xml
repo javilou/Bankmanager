@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TableConfiguration>
+	<TableRenderers>
+		<com.ontimize.gui.table.BooleanCellRenderer
+			rendererid="boolean" />
+		<com.ontimize.gui.table.BundleCellRenderer
+			rendererid="bundle" />
+		<com.ontimize.gui.table.CurrencyCellRenderer
+			rendererid="currency" />
+		<com.ontimize.gui.table.DateCellRenderer
+			rendererid="date" />
+		<com.ontimize.gui.table.MemoCellRenderer
+			rendererid="memo" />
+		<com.ontimize.gui.table.PercentCellRenderer
+			rendererid="percent" />
+		<com.ontimize.gui.table.RealCellRenderer
+			rendererid="real" />
+		<com.ontimize.gui.table.ComboReferenceCellRenderer
+			rendererid="comboReferenceTypeCustomer"
+			entity="CustomerService.customerType" cod="CUSTOMERTYPEID"
+			cols="DESCRIPTION" parentkeys="CUSTOMERTYPEID" />
+		<com.ontimize.gui.table.ComboReferenceCellRenderer
+			rendererid="comboReferenceAccountCustomer"
+			entity="CustomerService.customer" cod="CUSTOMERID"
+			cols="NAME;SURNAME" parentkeys="CUSTOMERID" separator=" " />
+		<com.ontimize.gui.table.ComboReferenceCellRenderer
+			rendererid="comboReferenceTypeMovement"
+			entity="MovementService.movementType" cod="MOVEMENTTYPEID"
+			cols="DESCRIPTION" parentkeys="MOVEMENTTYPEID" />
+	</TableRenderers>
+	<TableEditors>
+		<com.ontimize.gui.table.BooleanCellEditor
+			editorid="boolean" />
+		<com.ontimize.gui.table.BooleanCellEditor
+			editorid="boolean"
+			selecticon="com/ontimize/gui/images/checkselected.png"
+			deselecticon="com/ontimize/gui/images/checkunselected.gif" />
+		<com.ontimize.gui.table.DateCellEditor
+			editorid="calendar" attr="calendar" showcalendar="yes" />
+	</TableEditors>
+</TableConfiguration>

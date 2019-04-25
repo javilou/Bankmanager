@@ -1,0 +1,15 @@
+com\imatia\jee\bankmanager\server\tools\SettingsHelper.class
+com\imatia\jee\bankmanager\server\ServerRoleDao.class
+com\imatia\jee\bankmanager\server\dao\setup\OCDatabaseBundleDao.class
+com\imatia\jee\bankmanager\server\services\AdministrationServiceImpl.class
+com\imatia\jee\bankmanager\server\UserDao.class
+com\imatia\jee\bankmanager\server\dao\setup\OCSettingsDao.class
+com\imatia\jee\bankmanager\server\services\rest\UsersRestController.class
+com\imatia\jee\bankmanager\server\dao\setup\OCDatabaseBundleValueDao.class
+com\imatia\jee\bankmanager\server\dao\setup\OCLoginProfilesDao.class
+com\imatia\jee\bankmanager\server\UserRoleDao.class
+com\imatia\jee\bankmanager\server\services\UserAndRoleServiceImpl.class
+com\imatia\jee\bankmanager\server\dao\setup\OCUserPreferenceDao.class
+com\imatia\jee\bankmanager\server\dao\setup\OCRequestStatisticsDao.class
+com\imatia\jee\bankmanager\server\services\rest\AdministrationRestController.class
+com\imatia\jee\bankmanager\server\RoleDao.class

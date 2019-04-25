@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="bankmanager" version="2.5">
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:/spring-config-business.xml
+		</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>springHessianSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<!-- CHARACTER ENCODING -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<!-- CORS FILTER -->
+	<filter>
+		<filter-name>corsSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<!-- TIME FILTER -->
+	<filter>
+		<filter-name>FilterChainTime</filter-name>
+		<filter-class>com.ontimize.jee.server.requestfilter.ServletFilterDebugTimes</filter-class>
+	</filter>
+
+	<!-- SPRING SECURITY FILTER -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<!-- Ontimize FILTER -->
+	<filter>
+		<filter-name>OntimizeFilterChain</filter-name>
+		<filter-class>com.ontimize.jee.server.requestfilter.OntimizeServletFilter</filter-class>
+	</filter>
+
+	<!-- Ontimize STATICS FILTER -->
+	<filter>
+		<filter-name>OntimizeFilterChainRequestStatistics</filter-name>
+		<filter-class>com.ontimize.jee.server.requestfilter.OntimizeRequestStatisticsServletFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springHessianSecurityFilterChain</filter-name>
+		<url-pattern>/services/hessian/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>corsSecurityFilterChain</filter-name>
+		<url-pattern>/services/rest/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>FilterChainTime</filter-name>
+		<url-pattern>/services/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/services/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>OntimizeFilterChain</filter-name>
+		<url-pattern>/services/*</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>OntimizeFilterChainRequestStatistics</filter-name>
+		<url-pattern>/services/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- HESSIAN -->
+	<servlet>
+		<servlet-name>HessianServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>HessianServlet</servlet-name>
+		<url-pattern>/services/hessian/*</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- para la gestion de sesiones http -->
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
+
+	<!-- APACHE CXF -->
+	<!-- <servlet> -->
+	<!-- <description>Apache CXF Endpoint</description> -->
+	<!-- <display-name>cxf</display-name> -->
+	<!-- <servlet-name>cxf</servlet-name> -->
+	<!-- <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> -->
+	<!-- <load-on-startup>1</load-on-startup> -->
+	<!-- </servlet> -->
+
+	<!-- <servlet-mapping> -->
+	<!-- <servlet-name>cxf</servlet-name> -->
+	<!-- <url-pattern>/services/soa/*</url-pattern> -->
+	<!-- </servlet-mapping> -->
+
+	<!-- REST -->
+	<servlet>
+		<servlet-name>RestServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RestServlet</servlet-name>
+		<url-pattern>/services/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>com.ontimize.jee.server.contextlistener.OntimizeContextListener</listener-class>
+	</listener>
+
+</web-app>

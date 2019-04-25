@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FormExt
+	columns="EMPLOYEEID;EMPLOYEEPHOTO;EMPLOYEENAME;EMPLOYEESURNAME"
+	entity="EmployeeService.employee" keys="EMPLOYEEID"
+	title="form.employeeDetail">
+	<FormHeader standardbuttons="yes" />
+	<IntegerDataField attr="EMPLOYEEID" text="EMPLOYEEID"
+		dim="text" enabled="no" />
+	<Row expand="yes">
+		<Column expand="no" margin="5;5;5;5">
+			<ImageDataField attr="EMPLOYEEPHOTO"
+				text="EMPLOYEEPHOTO" width="144" height="200" returnbytes="yes"
+				keepaspectratio="yes" />
+		</Column>
+		<Column title="employee.employeeInformation">
+			<Row>
+				<Column>
+					<Row>
+						<TextDataField attr="EMPLOYEENAME"
+							text="EMPLOYEENAME" dim="text" />
+						<TextDataField attr="EMPLOYEESURNAME"
+							text="EMPLOYEESURNAME" dim="text" />
+					</Row>
+					<Row>
+						<TextDataField attr="EMPLOYEEPHONE"
+							text="EMPLOYEEPHONE" dim="text" />
+						<com.ontimize.gui.field.WWWDataField
+							attr="EMPLOYEEEMAIL" text="EMPLOYEEEMAIL" dim="text" />
+					</Row>
+				</Column>
+				<Column expand="no">
+					<DateDataField attr="EMPLOYEESTARTDATE"
+						text="EMPLOYEESTARTDATE" />
+					<ReferenceComboDataField
+						attr="EMPLOYEETYPEID" cod="EMPLOYEETYPEID" codInteger="yes"
+						codvisible="no" cols="EMPLOYEETYPENAME"
+						entity="EmployeeService.employeeType" dim="text" />
+				</Column>
+			</Row>
+			<Row>
+				<TextDataField attr="EMPLOYEEADDRESS"
+					text="EMPLOYEEADDRESS" dim="text" />
+				<!-- <IntegerDataField attr="OFFICEID" text="OFFICEID"></IntegerDataField> -->
+				<ReferenceExtDataField attr="OFFICEID"
+					cod="OFFICEID" entity="BranchService.branch" visiblecols="NAME"
+					cols="NAME" />
+			</Row>
+			<Row>
+				<RealDataField attr="LONGITUDE" text="LONGITUDE"
+					dim="text" />
+				<RealDataField attr="LATITUDE" text="LATITUDE"
+					dim="text" />
+			</Row>
+			<Row expand="yes">
+				<Column>
+					<HTMLDataField attr="EMPLOYEECOMMENTS"
+						text="EMPLOYEECOMMENTS" dim="text" expand="yes"
+						labelposition="top" />
+				</Column>
+			</Row>
+		</Column>
+	</Row>
+</FormExt>

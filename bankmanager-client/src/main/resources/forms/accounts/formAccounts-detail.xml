@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FormExt columns="ENTITYID;OFFICEID;CDID;ANID"
+	entity="BranchService.account" keys="ACCOUNTID"
+	title="form.accountDetail">
+	<FormHeader standardbuttons="yes" />
+	<IntegerDataField attr="ACCOUNTID" dim="text"
+		enabled="no" text="ACCOUNTID" />
+	<Row title="account.Details">
+		<Column>
+			<Row>
+				<Column>
+					<Row align="left" layout="flow">
+						<Label attr="accountNumber" text="accountNumber" />
+						<MaskDataField attr="ENTITYID" enabled="no"
+							exactmatch="yes" labelvisible="no" mask="0000" text="ENTITYID" />
+						<MaskDataField attr="OFFICEID" enabled="no"
+							exactmatch="yes" labelvisible="no" mask="0000" text="OFFICEID" />
+						<MaskDataField attr="CDID" enabled="no"
+							exactmatch="yes" labelvisible="no" mask="00" text="CDID" />
+						<MaskDataField attr="ANID" enabled="no"
+							exactmatch="yes" labelvisible="no" mask="0000000000" text="ANID" />
+					</Row>
+				</Column>
+				<Column>
+					<ReferenceExtDataField align="right"
+						text="OFFICEID" attr="OFFICEID_COMBO" cod="OFFICEID" cols="NAME"
+						entity="BranchService.branch" visiblecols="NAME" codvisible="no" />
+				</Column>
+			</Row>
+			<Row>
+				<DateDataField attr="STARTDATE" dim="text"
+					text="STARTDATE" />
+				<DateDataField attr="ENDDATE" dim="text"
+					text="ENDDATE" />
+			</Row>
+			<Row>
+				<RealDataField attr="INTERESRATE" dim="text"
+					text="INTERESRATE" />
+				<TextDataField attr="ACCOUNTTYP" dim="text"
+					text="ACCOUNTTYP" />
+			</Row>
+		</Column>
+	</Row>
+	<Row expand="yes">
+		<Column title="account.CustomerAccounts">
+			<Table entity="CustomerService.customerAccount"
+				cols="CUSTOMERACCOUNTID;CUSTOMERID;ACCOUNTID" controls="yes"
+				key="CUSTOMERACCOUNTID" refreshbutton="yes" parentkeys="ACCOUNTID"
+				visiblecols="CUSTOMERID"
+				renderers="CUSTOMERID:comboReferenceAccountCustomer" />
+		</Column>
+		<Column title="account.MovementsAccount">
+			<Table entity="MovementService.movement"
+				cols="MOVEMENTID;ACCOUNTID;DATE_;CONCEPT;MOVEMENTTYPEID;MOVEMENT;COMMENTS"
+				controls="yes" key="MOVEMENTID" refreshbutton="yes"
+				visiblecols="DATE_;CONCEPT;MOVEMENTTYPEID;MOVEMENT;COMMENTS"
+				parentkeys="ACCOUNTID"
+				renderers="MOVEMENTTYPEID:comboReferenceTypeMovement"
+				sumrow="MOVEMENT" />
+		</Column>
+	</Row>
+</FormExt>

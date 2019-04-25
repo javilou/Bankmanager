@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+	table="TI18N" datasource="mainDataSource" sqlhandler="sqlStatementHandler">
+	<DeleteKeys>
+		<Column>ID_I18N</Column>
+	</DeleteKeys>
+	<UpdateKeys>
+		<Column>ID_I18N</Column>
+	</UpdateKeys>
+	<GeneratedKey>ID_I18N</GeneratedKey>
+</JdbcEntitySetup>

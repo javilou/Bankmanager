@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by 
+			default -->
+		<encoder>
+			<pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{5}: %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>C:\applications\bankmanager-jee\logs\bankmanager-server-jee.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>bankmanager-server-jee.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>21</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>[%-5level] %d{dd/MM/yyyy HH:mm:ss.SSS} [%thread] %logger{5}: %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.ontimize" level="DEBUG"/>
+
+
+	<logger name="org.springframework.beans" level="WARN" />
+	<logger name="org.springframework.web" level="WARN" />
+	<logger name="org.springframework.core" level="WARN" />
+	<logger name="org.springframework.ui" level="WARN" />
+	<logger name="org.springframework.aop" level="WARN" />
+	<logger name="org.springframework.security" level="WARN" />
+	<logger name="org.springframework.jndi" level="WARN" />
+	<logger name="org.springframework.remoting" level="WARN" />
+	<logger name="org.springframework.context" level="WARN" />
+	<logger name="org.springframework.jdbc" level="TRACE" />
+	<logger name="org.springframework.transaction" level="TRACE" />
+	 <logger name="org.springframework.web.servlet.mvc.method.annotation" level="TRACE"/>
+	 <logger name="com.caucho.hessian" level="WARN"/>
+	<!-- <logger name="org.springframework" level="TRACE"/> -->
+
+	<!-- Strictly speaking, the level attribute is not necessary since -->
+	<!-- the level of the root level is set to DEBUG by default. -->
+	<root level="TRACE">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>

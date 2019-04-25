@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Base module service -->
+	<bean id="UserAndRoleService"
+		class="com.ontimize.jee.common.hessian.OntimizeHessianProxyFactoryBean"
+		lazy-init="true">
+		<property name="proxyFactory" ref="hessianProxyFactory" />
+		<property name="serviceRelativeUrl"
+			value="/bankmanager-jee/services/hessian/userAndRoleService" />
+		<property name="serviceInterface"
+			value="com.imatia.jee.bankmanager.common.base.services.IUserAndRoleService" />
+	</bean>
+
+	<bean id="BranchService"
+		class="com.ontimize.jee.common.hessian.OntimizeHessianProxyFactoryBean"
+		lazy-init="true">
+		<property name="proxyFactory" ref="hessianProxyFactory"></property>
+		<property name="serviceRelativeUrl"
+			value="/bankmanager-jee/services/hessian/branchservice"></property>
+		<property name="serviceInterface"
+			value="com.imatia.jee.bankmanager.common.base.services.IBranchService"></property>
+	</bean>
+
+	<bean id="CustomerService"
+		class="com.ontimize.jee.common.hessian.OntimizeHessianProxyFactoryBean"
+		lazy-init="true">
+		<property name="proxyFactory" ref="hessianProxyFactory"></property>
+		<property name="serviceRelativeUrl"
+			value="/bankmanager-jee/services/hessian/customerservice"></property>
+		<property name="serviceInterface"
+			value="com.imatia.jee.bankmanager.common.base.services.ICustomerService"></property>
+	</bean>
+	<bean id="MovementService"
+		class="com.ontimize.jee.common.hessian.OntimizeHessianProxyFactoryBean"
+		lazy-init="true">
+		<property name="proxyFactory" ref="hessianProxyFactory" />
+		<property name="serviceRelativeUrl"
+			value="/bankmanager-jee/services/hessian/movementservice" />
+		<property name="serviceInterface"
+			value="com.imatia.jee.bankmanager.common.base.services.IMovementService" />
+	</bean>
+	<bean id="EmployeeService"
+		class="com.ontimize.jee.common.hessian.OntimizeHessianProxyFactoryBean"
+		lazy-init="true">
+		<property name="proxyFactory" ref="hessianProxyFactory"></property>
+		<property name="serviceRelativeUrl"
+			value="/bankmanager-jee/services/hessian/employeeservice"></property>
+		<property name="serviceInterface"
+			value="com.imatia.jee.bankmanager.common.base.services.IEmployeeService"></property>
+	</bean>
+</beans>

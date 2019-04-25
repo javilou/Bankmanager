@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- File to describe the application modules -->
+<com.imatia.jee.bankmanager.client.Application
+	title="BankManager JEE" splash="images/00_login-splash.png;2"
+	loginsplah="images/00_login-splash.png;2"
+	loginicon="images/back_login.png" icon="images/innova48x48.png"
+	preferences="BankManagerJEE.conf" logintext="session_start"
+	resources="i18n.bundle" locale="es_ES"
+	logindialogclass="com.ontimize.login.ShapeLoginDialog"
+	dialogtopmargin="125" dialogbottommargin="80" dialogleftmargin="260"
+	dialogrightmargin="150" dialogstatususergap="0"
+	dialoguserpasswordgap="4" dialogpasswordcheckgap="4"
+	dialogcombocheckgap="6" dialogbuttoncombogap="8" dialoglabelsize="7"
+	dialogfontlogin="Arial-PLAIN-11" dialogfontpass="Arial-BOLD-11"
+	dialogfontcheck="Arial-PLAIN-11" dialoglabelfonttext="Arial-PLAIN-11"
+	dialoglabelfontcheck="Arial-PLAIN-11"
+	dialogforegroundtextfield="#333333"
+	dialogforegroundchecklabel="#333333" dialogforegroundlabel="#333333"
+	status="com.ontimize.gui.MainApplication.StatusBar">
+
+	<!-- Application configuration params -->
+	<ReferenceLocator remotelocatorname="x" local="false"
+		ClientPermissionColumn="XMLCLIENT"
+		class="com.imatia.jee.bankmanager.client.ClientReferenceLocator" />
+
+	<!-- Menu and toolbar configuration -->
+	<Menu archive="ontimize-main-menu.xml" />
+	<Toolbar archive="ontimize-main-toolbar.xml" />
+	<MenuListener
+		class="com.imatia.jee.bankmanager.client.AppMenuListener" />
+	<ToolbarListener
+		class="com.imatia.jee.bankmanager.client.AppToolbarListener" />
+
+	<FormManager id="manager-about"
+		form="forms/about/formabout.xml"
+		imanager="com.imatia.jee.bankmanager.client.utils.BasicInteractionManagerExpanded" />
+	<FormManager id="manager-branch"
+		form="forms/branches/formBranches-detail.xml"
+		imanager="com.imatia.jee.bankmanager.client.utils.BasicInteractionManagerExpanded"
+		delayedload="yes" tree="forms/branches/treeBranches.xml" />
+	<TabbedFormManager id="manager-customer"
+		form="forms/customers/formCustomer.xml"
+		imanager="com.imatia.jee.bankmanager.client.managers.customers.IMCustomerTable"
+		delayedload="yes">
+		<InteractionManager form="formCustomer-detail.xml"
+			class="com.imatia.jee.bankmanager.client.utils.BasicInteractionManagerExpanded"></InteractionManager>
+		<InteractionManager
+			form="formCustomerType-detail.xml"
+			class="com.imatia.jee.bankmanager.client.utils.BasicInteractionManagerExpanded"></InteractionManager>
+	</TabbedFormManager>
+	<FormManager id="manager-account"
+		form="forms/accounts/formAccounts-detail.xml"
+		imanager="com.imatia.jee.bankmanager.client.managers.accounts.IMAccounts"
+		delayedload="yes" tree="forms/accounts/treeAccounts.xml" />
+
+	<FormManager id="manager-employee"
+		form="forms/employees/formEmployees-detail.xml"
+		imanager="com.imatia.jee.bankmanager.client.utils.BasicInteractionManagerExpanded"
+		delayedload="yes" tree="forms/employees/treeEmployees.xml" />
+
+</com.imatia.jee.bankmanager.client.Application>

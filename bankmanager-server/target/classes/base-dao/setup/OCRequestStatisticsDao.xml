@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+	table="TREQUEST_STATISTICS" datasource="mainDataSource" sqlhandler="sqlStatementHandler">
+	<DeleteKeys>
+		<Column>ID_REQUEST_STATISTICS</Column>
+	</DeleteKeys>
+	<UpdateKeys>
+		<Column>ID_REQUEST_STATISTICS</Column>
+	</UpdateKeys>
+	<GeneratedKey>ID_REQUEST_STATISTICS</GeneratedKey>
+	<Queries>
+		<Query id="default">
+			<ValidColumns>
+				<Column>ID_REQUEST_STATISTICS</Column>
+				<Column>SERVICE_NAME</Column>
+				<Column>METHOD_NAME</Column>
+				<Column>USER_NAME</Column>
+				<Column>EXECUTION_DATE</Column>
+				<Column>EXECUTION_TIME</Column>
+				<Column>METHOD_PARAMS</Column>
+				<Column>SERVICE_EXCEPTION</Column>
+			</ValidColumns>
+			<Sentence>
+                <![CDATA[
+				select
+				    #COLUMNS#
+				from
+				    ${mainschema}.TREQUEST_STATISTICS trs
+				#WHERE#
+				#ORDER#
+				]]>
+            </Sentence>
+		</Query>
+		<Query id="statistics">
+			<ValidColumns>
+				<Column>SERVICE_NAME</Column>
+				<Column>METHOD_NAME</Column>
+				<Column>EXECUTION_DATE</Column>
+				<Column>EXECUTION_TIME</Column>
+			</ValidColumns>
+			<Sentence>
+                <![CDATA[
+				select
+				    trs.SERVICE_NAME,trs.METHOD_NAME,COUNT(trs.SERVICE_NAME) as MEASURES,MIN(trs.EXECUTION_TIME)as MIN_TIME,MAX(trs.EXECUTION_TIME)as MAX_TIME,AVG(trs.EXECUTION_TIME) as MEAN_TIME
+				from
+				    ${mainschema}.TREQUEST_STATISTICS trs
+				#WHERE#
+				#ORDER#
+				group by
+				    trs.SERVICE_NAME,trs.METHOD_NAME
+				]]>
+            </Sentence>
+		</Query>
+	</Queries>
+</JdbcEntitySetup>
