@@ -1,14 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.imatia.jee</groupId>
-    <artifactId>bankmanager</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>bankmanager-server</artifactId>
-  <name>Bank Manager Server JEE</name>
-  <description>Bank Manager Server JEE</description>
-<build>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.imatia.jee</groupId>
+		<artifactId>bankmanager</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>bankmanager-server</artifactId>
+	<name>Bank Manager Server JEE</name>
+	<description>Bank Manager Server JEE</description>
+	<build>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -69,6 +71,24 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
+		<!-- Alfesco API -->
+		<dependency>
+			<groupId>org.alfresco</groupId>
+			<artifactId>alfresco-remote-api</artifactId>
+			<version>7.54</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.chemistry.opencmis</groupId>
+			<artifactId>chemistry-opencmis-osgi-client</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.apache.chemistry.opencmis</groupId> -->
+<!-- 			<artifactId>chemistry-opencmis-client-impl</artifactId> -->
+<!-- 			<version>1.1.0</version> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<profiles>
@@ -89,7 +109,8 @@
 								</goals>
 								<configuration>
 									<target>
-										<available file="${hsqldatabase.path}/templateDB.script"
+										<available
+											file="${hsqldatabase.path}/templateDB.script"
 											property="database.exist" />
 										<echo message="${hsqldatabase.path}/templateDB.script" />
 										<copy tofile="${hsqldatabase.path}/templateDB.script"
@@ -119,5 +140,5 @@
 			</build>
 		</profile>
 	</profiles>
-	
+
 </project>
