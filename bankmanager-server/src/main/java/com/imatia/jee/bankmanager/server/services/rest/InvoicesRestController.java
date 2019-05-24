@@ -1,12 +1,27 @@
 package com.imatia.jee.bankmanager.server.services.rest;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.sql.Types;
 import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.chemistry.opencmis.client.api.Document;
+import org.apache.chemistry.opencmis.client.api.Folder;
+import org.apache.chemistry.opencmis.client.api.Session;
+import org.apache.chemistry.opencmis.client.api.SessionFactory;
+import org.apache.chemistry.opencmis.client.runtime.SessionFactoryImpl;
+import org.apache.chemistry.opencmis.commons.PropertyIds;
+import org.apache.chemistry.opencmis.commons.SessionParameter;
+import org.apache.chemistry.opencmis.commons.data.ContentStream;
+import org.apache.chemistry.opencmis.commons.enums.BindingType;
+import org.apache.chemistry.opencmis.commons.enums.VersioningState;
+import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,21 +47,22 @@ import com.ontimize.jee.server.rest.UpdateParameter;
 @RestController
 @RequestMapping("/invoices")
 public class InvoicesRestController extends ORestController<IInvoices> {
-	
+
 	@Autowired
 	private IInvoices invoices;
-	
+
 	@Override
 	public IInvoices getService() {
 		return this.invoices;
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/{name}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<EntityResult> update(@PathVariable("name") String name, @RequestBody UpdateParameter updateParameter) {
+	public ResponseEntity<EntityResult> update(@PathVariable("name") String name,
+			@RequestBody UpdateParameter updateParameter) {
 
-		if (updateParameter.getFilter().containsKey(InvoicesService.INVOICE_KEY_ATT) 
-				&& updateParameter.getFilter().get(InvoicesService.INVOICE_KEY_ATT)!=null) {
+		if (updateParameter.getFilter().containsKey(InvoicesService.INVOICE_KEY_ATT)
+				&& updateParameter.getFilter().get(InvoicesService.INVOICE_KEY_ATT) != null) {
 			updateParameter.getSqltypes().put("AMOUNT", Types.DOUBLE);
 			return super.update(name, updateParameter);
 		} else {
@@ -57,7 +73,7 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 
 		}
 	}
-	
+
 	@PostMapping(value = "upload")
 	public ResponseEntity<String> upload(@RequestParam("name") String[] names,
 			@RequestParam("file") MultipartFile[] files, @RequestParam(name = "data", required = false) String data)
@@ -70,19 +86,58 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 		}
 
 		System.out.println("----- SE RECIBIO EL ARCHIVO -----");
-		
-			File ruta = new File("C:\\FileTemp");
-			
-		for (int i = 0; i < files.length; i++) {
-			InputStream fileContent = files[i].getInputStream();
-			System.out.println("Nombre original del archivo: " + files[i].getOriginalFilename());
-			System.out.println("Tamaño del archivo: " + files[i].getSize());
-			System.out.println("Numero de archivos: " + files.length);
-			
-			File file = new File(ruta, files[i].getOriginalFilename());
-			Files.copy(fileContent, file.toPath());
-			
-		}
+
+//		File ruta = new File("C:\\FileTemp");
+//
+//		for (int i = 0; i < files.length; i++) {
+//			InputStream fileContent = files[i].getInputStream();
+//			System.out.println("Nombre original del archivo: " + files[i].getOriginalFilename());
+//			System.out.println("Tamaño del archivo: " + files[i].getSize());
+//			System.out.println("Numero de archivos: " + files.length);
+//
+//			File file = new File(ruta, files[i].getOriginalFilename());
+//			Files.copy(fileContent, file.toPath());
+//		}
+
+		// Implementacion de la factory
+		SessionFactory factory = SessionFactoryImpl.newInstance();
+		HashMap<String, String> parameter = new HashMap<String, String>();
+
+		// Credenciales Usuario
+		parameter.put(SessionParameter.USER, "admin");
+		parameter.put(SessionParameter.PASSWORD, "root");
+
+		// Ajustes Conexion
+		parameter.put(SessionParameter.ATOMPUB_URL,
+				"http://127.0.0.1:1234/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+		parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
+
+		// Crear Sesion
+		Session session = factory.getRepositories(parameter).get(0).createSession();
+		Folder root = session.getRootFolder();
+
+		// Propiedades
+		Map<String, Object> properties = new HashMap<String, Object>();
+		properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
+		properties.put(PropertyIds.NAME,"Documentos de subida");
+
+		Folder parent = root.createFolder(properties);
+		String name = files[0].getOriginalFilename();
+
+		// Propiedades
+		Map<String, Object> properties1 = new HashMap<String, Object>();
+		properties1.put(PropertyIds.OBJECT_TYPE_ID, "cmis:document");
+		properties1.put(PropertyIds.NAME, name);
+
+		// content
+		InputStream fileContent = files[0].getInputStream(); 
+		byte[] content = IOUtils.toByteArray(fileContent);
+		ByteArrayInputStream stream = new ByteArrayInputStream(content);
+		ContentStream contentStream = new ContentStreamImpl(name, BigInteger.valueOf(content.length), "text/plain",
+				stream);
+
+		Document newDoc = parent.createDocument(properties1, contentStream, VersioningState.MAJOR);
+
 		return ResponseEntity.ok("-----SE SUBIO EL ARCIHVO-----");
 	}
 }
