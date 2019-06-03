@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.sql.Types;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.chemistry.opencmis.client.api.Document;
@@ -23,6 +24,7 @@ import org.apache.chemistry.opencmis.commons.enums.VersioningState;
 import org.apache.chemistry.opencmis.commons.impl.dataobjects.ContentStreamImpl;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +42,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imatia.jee.bankmanager.common.base.services.IInvoices;
 import com.imatia.jee.bankmanager.server.services.InvoicesService;
 import com.ontimize.db.EntityResult;
+import com.ontimize.jee.common.tools.CheckingTools;
+import com.ontimize.jee.common.tools.ReflectionTools;
 import com.ontimize.jee.server.rest.InsertParameter;
 import com.ontimize.jee.server.rest.ORestController;
+import com.ontimize.jee.server.rest.QueryParameter;
 import com.ontimize.jee.server.rest.UpdateParameter;
 
 @RestController
@@ -73,6 +78,13 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 
 		}
 	}
+	
+	@Override
+	@RequestMapping(value = "/{name}/search", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<EntityResult> query(@PathVariable("name") String name, @RequestBody QueryParameter queryParameter) throws Exception {
+		queryParameter.getSqltypes().put("INVOICESID", Types.INTEGER);
+		return super.query(name, queryParameter);
+	}
 
 	@PostMapping(value = "upload")
 	public ResponseEntity<String> upload(@RequestParam("name") String[] names,
@@ -84,8 +96,9 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 		if (data != null) {
 			extraData = new ObjectMapper().readValue(data, HashMap.class);
 		}
-
+		
 		System.out.println("----- SE RECIBIO EL ARCHIVO -----");
+		
 
 //		File ruta = new File("C:\\FileTemp");
 //
@@ -119,7 +132,7 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 		// Propiedades
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(PropertyIds.OBJECT_TYPE_ID, "cmis:folder");
-		properties.put(PropertyIds.NAME,"Documentos de subida");
+		properties.put(PropertyIds.NAME,"Documentos subidos con id");
 
 		Folder parent = root.createFolder(properties);
 		String name = files[0].getOriginalFilename();
@@ -138,6 +151,8 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 
 		Document newDoc = parent.createDocument(properties1, contentStream, VersioningState.MAJOR);
 
+		System.out.println("----------------------------------------------- SE APROXIMA LA DATA ------------------------------------------------------");
+		System.out.println(data);
 		return ResponseEntity.ok("-----SE SUBIO EL ARCIHVO-----");
 	}
 }
