@@ -122,7 +122,7 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 
 		// Ajustes Conexion
 		parameter.put(SessionParameter.ATOMPUB_URL,
-				"http://127.0.0.1:1234/alfresco/api/-default-/public/cmis/versions/1.1/atom");
+				"http://127.0.0.1:8079/alfresco/api/-default-/public/cmis/versions/1.1/atom");
 		parameter.put(SessionParameter.BINDING_TYPE, BindingType.ATOMPUB.value());
 
 		// Crear Sesion
@@ -150,9 +150,15 @@ public class InvoicesRestController extends ORestController<IInvoices> {
 				stream);
 
 		Document newDoc = parent.createDocument(properties1, contentStream, VersioningState.MAJOR);
-
-		System.out.println("----------------------------------------------- SE APROXIMA LA DATA ------------------------------------------------------");
-		System.out.println(data);
+		String idFichero=newDoc.getId();
+		String urlFichero=newDoc.getContentUrl();
+		Map<String,Object>attributes=new HashMap<String,Object>();
+		Map<String,Object>keyValues=new HashMap<String,Object>();
+		attributes.put("INVOICE_FILE_URL", urlFichero);
+		keyValues.put( "INVOICESID",extraData.get("invoiceId"));
+		this.invoices.invoicesUpdate(attributes, keyValues);
+	
 		return ResponseEntity.ok("-----SE SUBIO EL ARCIHVO-----");
 	}
+	
 }

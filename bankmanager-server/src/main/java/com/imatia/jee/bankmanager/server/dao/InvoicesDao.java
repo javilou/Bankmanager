@@ -19,7 +19,7 @@ public class InvoicesDao extends OntimizeJdbcDaoSupport {
 	public static final String ATTR_CUSTOMERID = "CUSTOMERID";
 	public static final String ATTR_INVOICE_NAME = "INVOICE_NAME";
 	public static final String ATTR_AMOUNT = "AMOUNT";
-	public static final String ATTR_INVOICE_FILE = "INVOICE_FILE";
+	public static final String ATTR_INVOICE_FILE_URL = "INVOICE_FILE_URL";
 	
 	public InvoicesDao() {
 
