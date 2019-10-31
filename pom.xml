@@ -80,7 +80,7 @@
 		<javax.mail.version>1.5.0</javax.mail.version>
 		<keytool-api-1.7.version>1.4</keytool-api-1.7.version>
 		<jep.version>2.24</jep.version>
-		<commons-fileupload.version>1.3.2</commons-fileupload.version>
+		<commons-fileupload.version>1.3.3</commons-fileupload.version>
 		<jackson.version>2.5.1</jackson.version>
 		<!-- =========================================================== -->
 		<!-- Server context -->
