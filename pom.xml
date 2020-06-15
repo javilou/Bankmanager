@@ -68,7 +68,7 @@
 		<commons-codec.version>1.8</commons-codec.version>
 		<jmimemagic.version>0.1.2</jmimemagic.version>
 		<jasperreports.version>5.5.2</jasperreports.version>
-		<commons-collections.version>3.2.1</commons-collections.version>
+		<commons-collections.version>3.2.2</commons-collections.version>
 		<commons-io.version>2.4</commons-io.version>
 		<mesp.version>1.0.2</mesp.version>
 		<zip4j.version>1.3.2</zip4j.version>
