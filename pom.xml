@@ -56,7 +56,7 @@
 		<cglib.version>2.2.3</cglib.version>
 
 		<javassist.version>3.18.0.GA</javassist.version>
-		<junit.version>4.11</junit.version>
+		<junit.version>4.13.1</junit.version>
 		<logback.version>1.1.1</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<apache-poi.version>3.9</apache-poi.version>
